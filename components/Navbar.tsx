@@ -26,7 +26,7 @@ export const Navbar = ({
         Freelance Hub
       </h1>
       <div className="flex space-x-4">
-        <button
+        {/* <button
           className="hover:text-blue-500"
           onClick={() => router.push("/")}
         >
@@ -43,7 +43,7 @@ export const Navbar = ({
           onClick={() => router.push("/jobs")}
         >
           Jobs
-        </button>
+        </button> */}
         <button
           className="hover:text-blue-500"
           onClick={() => router.push("/profile")}

@@ -19,14 +19,16 @@ export const SectionTabs = () => {
         <button
           key={path}
           className={`p-2 relative ${
-            pathname === path
+            pathname === path ||
+            (path === "/freelance" && pathname.startsWith(path))
               ? "border-b-2 border-blue-500 font-bold"
               : "text-gray-500"
           }`}
           onClick={() => router.push(path)}
         >
           {name}
-          {pathname === path && (
+          {(pathname === path ||
+            (path === "/freelance" && pathname.startsWith(path))) && (
             <motion.div
               layoutId="underline"
               className="absolute bottom-0 left-0 w-full h-0.5 bg-blue-500"
