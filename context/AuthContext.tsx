@@ -4,6 +4,7 @@ import { createContext, useContext, useState, useEffect } from "react";
 import { auth, provider, signInWithPopup, signOut } from "@/lib/firebase";
 import { GoogleAuthProvider, User, onAuthStateChanged } from "firebase/auth";
 import { setCookie, deleteCookie } from "cookies-next";
+import { useRouter } from "next/navigation";
 
 interface AuthContextType {
   user: User | null;
@@ -15,6 +16,7 @@ const AuthContext = createContext<AuthContextType | null>(null);
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
+  const router = useRouter();
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -32,9 +34,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
       console.log("Google Access Token:", token);
       setUser(result.user);
+      router.push("/");
 
       if (token) {
-        setCookie("token", token, { maxAge: 60 * 60 * 24 }); 
+        setCookie("token", token, { maxAge: 60 * 60 * 24 });
       }
     } catch (error) {
       console.error("Login error:", error);
@@ -44,7 +47,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const logout = async () => {
     await signOut(auth);
     setUser(null);
-    deleteCookie("token"); 
+    deleteCookie("token");
+    router.push("/login");
   };
 
   return (
