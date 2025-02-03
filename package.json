@@ -11,6 +11,8 @@
   "dependencies": {
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "cookies-next": "^5.1.0",
+    "firebase": "^11.2.0",
     "formik": "^2.4.6",
     "framer-motion": "^12.0.6",
     "freelance-webapp-frontend-v1": "file:",

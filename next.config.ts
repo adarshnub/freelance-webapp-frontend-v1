@@ -6,13 +6,14 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "via.placeholder.com",
+        hostname: "lh3.googleusercontent.com",
         port: "",
         pathname: "/**",
         search: "",
       },
     ],
   },
+  // reactStrictMode: true,
 };
 
 export default nextConfig;

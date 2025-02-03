@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+import { useAuth } from "@/context/AuthContext";
 
 export const Navbar = ({
   darkMode,
@@ -12,6 +13,7 @@ export const Navbar = ({
   setDarkMode: (darkMode: boolean) => void;
 }) => {
   const router = useRouter();
+  const { user, login, logout } = useAuth() || {};
 
   const handleDarkModeToggle = () => {
     setDarkMode(!darkMode);
@@ -39,13 +41,6 @@ export const Navbar = ({
           Post a Project
         </button>
 
-        <button
-          className="hover:text-blue-500 flex items-center gap-x-2 text-sm"
-          onClick={() => router.push("/profile")}
-        >
-          <div className="rounded-full bg-gray-700 w-7 h-7 " />
-          <span>Larrybad</span>
-        </button>
         <motion.button
           className="p-2 rounded-md border relative w-10 h-10 flex items-center justify-center"
           onClick={handleDarkModeToggle}
@@ -70,6 +65,32 @@ export const Navbar = ({
             🌙
           </motion.div>
         </motion.button>
+        <button
+          className="hover:text-blue-500 flex items-center gap-x-2 text-sm"
+          onClick={() => router.push("/profile")}
+        >
+          <div className="rounded-full  w-7 h-7 ">
+            {user && user?.photoURL && (
+              <Image
+                src={user.photoURL}
+                alt="user"
+                width={27}
+                height={27}
+                objectFit="cover"
+                className="rounded-full"
+              />
+            )}
+          </div>
+          <span>{user?.displayName || ""}</span>
+        </button>
+
+        <div className="flex items-center justify-center text-sm cursor-pointer">
+          {user ? (
+            <div onClick={logout}> sign out</div>
+          ) : (
+            <div onClick={login}>sign in</div>
+          )}
+        </div>
       </div>
     </nav>
   );
