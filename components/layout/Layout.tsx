@@ -42,7 +42,7 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
           darkMode ? "bg-gray-900 text-white" : "bg-white text-black"
         } min-h-screen`}
       >
-        <div className="max-w-[1200px] mx-auto px-5 py-5">
+        <div className="max-w-[1400px] mx-auto px-5 py-5">
           <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
           <SectionTabs />
           {children}

@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 export const Navbar = ({
   darkMode,
@@ -12,7 +13,6 @@ export const Navbar = ({
 }) => {
   const router = useRouter();
 
-  
   const handleDarkModeToggle = () => {
     setDarkMode(!darkMode);
   };
@@ -23,32 +23,28 @@ export const Navbar = ({
         className="text-xl font-bold cursor-pointer"
         onClick={() => router.push("/")}
       >
-        Freelance Hub
+        <Image
+          src="/assets/logos/logo.png"
+          alt="Freelance hub"
+          width={168}
+          height={40}
+          className=""
+        />
       </h1>
       <div className="flex space-x-4">
-        {/* <button
-          className="hover:text-blue-500"
-          onClick={() => router.push("/")}
+        <button
+          className=" hover:bg-[#c74287] flex items-center gap-x-2 font-[700] bg-[#C40D6C] text-white px-2 rounded-[10px] text-sm"
+          onClick={() => router.push("/freelance/post-project")}
         >
-          Home
+          Post a Project
         </button>
+
         <button
-          className="hover:text-blue-500"
-          onClick={() => router.push("/projects")}
-        >
-          Freelance
-        </button>
-        <button
-          className="hover:text-blue-500"
-          onClick={() => router.push("/jobs")}
-        >
-          Jobs
-        </button> */}
-        <button
-          className="hover:text-blue-500"
+          className="hover:text-blue-500 flex items-center gap-x-2 text-sm"
           onClick={() => router.push("/profile")}
         >
-          Profile
+          <div className="rounded-full bg-gray-700 w-7 h-7 " />
+          <span>Larrybad</span>
         </button>
         <motion.button
           className="p-2 rounded-md border relative w-10 h-10 flex items-center justify-center"
