@@ -14,8 +14,10 @@ export const Navbar = ({
   setDarkMode: (darkMode: boolean) => void;
 }) => {
   const router = useRouter();
-  const { user, login, logout } = useAuth() || {};
+  const { user, logout } = useAuth() || {};
   const [isScrolled, setIsScrolled] = useState(false);
+
+  console.log(user, "test");
 
   useEffect(() => {
     const handleScroll = () => {
@@ -26,6 +28,15 @@ export const Navbar = ({
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const getDisplayName = () => {
+    if (user?.displayName) {
+      return user.displayName;
+    }
+    if (user?.email) {
+      return user.email.split("@")[0]; // Get part before '@' in email
+    }
+    return "User"; // Default fallback
+  };
   return (
     <nav
       className={`transition-all duration-500  ${
@@ -96,14 +107,15 @@ export const Navbar = ({
                 />
               )}
             </div>
-            <span>{user?.displayName || ""}</span>
+            <span>{getDisplayName() || ""}</span>
           </button>
 
           <div className="flex items-center justify-center text-sm cursor-pointer">
             {user ? (
               <div onClick={logout}>Sign out</div>
             ) : (
-              <div onClick={login}>Sign in</div>
+              ""
+              // <div onClick={login}>Sign in</div>
             )}
           </div>
         </div>
