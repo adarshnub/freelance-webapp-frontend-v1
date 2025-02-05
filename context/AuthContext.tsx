@@ -18,9 +18,22 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const router = useRouter();
 
+  const refreshTokenIfNeeded = async (currentUser: User) => {
+    try {
+      const token = await currentUser.getIdToken();
+
+      setCookie("token", token);
+    } catch (error) {
+      console.error("errror refres:", error);
+    }
+  };
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
+      if (currentUser) {
+        refreshTokenIfNeeded(currentUser);
+      }
     });
 
     return () => unsubscribe();
@@ -32,12 +45,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       const credential = GoogleAuthProvider.credentialFromResult(result);
       const token = credential?.accessToken;
 
-      console.log("Google Access Token:", token);
+      console.log("id ttoken:", token);
       setUser(result.user);
       router.push("/");
 
       if (token) {
-        setCookie("token", token, { maxAge: 60 * 60 * 24 });
+        setCookie("token", token);
       }
     } catch (error) {
       console.error("Login error:", error);
